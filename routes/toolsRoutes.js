@@ -1,6 +1,11 @@
 const express = require('express')
-const {AddTools} = require('../controllers/toolsControllers')
+const {AddTools , getAllTools , getSingleProducts} = require('../controllers/toolsControllers')
 const toolsRoute = express.Router()
 
-toolsRoute.get('/', AddTools)
+toolsRoute.post('/', AddTools)
+toolsRoute.get('/', getAllTools)
+toolsRoute.get('/:id', getSingleProducts)
+
+
+
 module.exports = toolsRoute
