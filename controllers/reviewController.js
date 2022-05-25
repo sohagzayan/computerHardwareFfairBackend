@@ -10,3 +10,13 @@ exports.postReview = async(req , res)=>{
         res.send(error.message)
     }
 }
+
+
+exports.getReview = async(req , res)=>{
+    try {
+        const newPurchase = await Review.find()
+        res.send(newPurchase)
+    } catch (error) {
+        res.send(error.message)
+    }
+}

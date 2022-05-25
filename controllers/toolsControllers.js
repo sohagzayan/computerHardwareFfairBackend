@@ -41,3 +41,12 @@ exports.getSingleProducts = async (req , res)=>{
         res.send(error.message)
     }
 }
+exports.deleteSingleProducts = async (req , res)=>{
+   
+    try {
+        const getSingleProducts = await Tools.findByIdAndDelete(req.params.id)
+        res.send(getSingleProducts)
+    } catch (error) {
+        res.send(error.message)
+    }
+}

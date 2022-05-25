@@ -11,6 +11,7 @@ const multer = require("multer");
 const path = require("path");
 const unShiptUser = require('./routes/userRoutes')
 const reviewRoute = require('./routes/reviewRoute')
+const adminRoute = require('./routes/adminRoute')
 const UPLOAD_FOLDER = "./upload/";
 app.use("/upload" , express.static(path.join(__dirname, "/upload")))
 const storage = multer.diskStorage({
@@ -43,7 +44,13 @@ app.use("/api/tools", toolsRoute);
 app.use("/api/purchase", purchaseRoute);
 app.use("/api/user" , unShiptUser)
 app.use("/api/review" , reviewRoute)
+app.use("/api/admin" , adminRoute)
+
+
+app.get('/',(req, res)=>{
+  res.send('hello word')
+})
 
 app.listen(port, () => {
-  console.log(`server is running on ${port}`);
+  (`server is running on ${port}`);
 });

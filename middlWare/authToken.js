@@ -7,7 +7,7 @@ const authToken = (req, res, next) => {
   try {
     const token = authorization.split(" ")[1];
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
-    console.log(decoded);
+    (decoded);
     req.decoded = decoded
     next();
   } catch (err) {

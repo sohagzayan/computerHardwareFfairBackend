@@ -1,7 +1,8 @@
 const User = require('../models/UserSchema')
 const jwt = require('jsonwebtoken')
 
-exports.unShiptUser = async(req , res)=>{
+
+exports.makeAdmin = async(req , res)=>{
     try {
        const email = req.params.email
        const user = req.body
@@ -11,36 +12,20 @@ exports.unShiptUser = async(req , res)=>{
            $set : user
        }
        const result = await User.updateOne(filter , updateDoc , options)
-       const token = await jwt.sign({email : email} , process.env.ACCESS_TOKEN ,{expiresIn : '7d'})
+       const token = await jwt.sign({email : email} , process.env.ACCESS_TOKEN ,{expiresIn : '1h'})
        res.status(200).json({result , token})
     } catch (error) {
         res.send(error)
     }
 }
 
-
-exports.getAllUser = async(req , res)=>{
+exports.getAdmin = async(req , res)=>{
     try {
-        const allUser = await User.find()
-        res.send(allUser)
+        const email = req.params.email
+        const user = await User.find({email : email})
+        const isAdmin = user[0].role === 'admin'
+        res.send({admin : isAdmin})
     } catch (error) {
         res.send(error)
     }
 }
-
-
-
-
-exports.deleteUser = async(req , res)=>{
-    const id = req.params.id
-    try {
-        const allUser = await User.findByIdAndDelete(id)
-        res.send(allUser)
-    } catch (error) {
-        res.send(error)
-    }
-}
-
-
-
-

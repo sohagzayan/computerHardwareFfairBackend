@@ -13,9 +13,15 @@ const purchaseSchema = mongoose.Schema({
     Number : {
         type : String,
     },
+    price : {
+        type : String,
+    },
+    orderAmount : {
+        type : String,
+    },
     date : {
-        type : Date,
-        default : Date.now
+        type : String
+        
     }
 })
 
