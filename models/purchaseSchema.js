@@ -29,6 +29,10 @@ const purchaseSchema = mongoose.Schema({
         default : ''
 
     },
+    status : {
+        type : String,
+        default : 'pending'
+    },
     date : {
         type : String
         

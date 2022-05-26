@@ -76,12 +76,7 @@ exports.updatePayedInfo = ('/',  async (req , res)=>{
   const payment = req.body
   const result = await Payment(payment)
   await result.save()
- 
-  // const updateProduct = {
-  //   payed : 'true',
-  //   transactionId : payment.transactionId
-  // }
-  const updated = await Purchase.findByIdAndUpdate({_id : req.params.id} ,{ $set : {payed : 'true' , transactionId : payment.transactionId}} , {useFindAndModify : true},(error)=>{
+  const updated = await Purchase.findByIdAndUpdate({_id : req.params.id} ,{ $set : {payed : payment.payed , transactionId : payment.transactionId}} , {useFindAndModify : true},(error)=>{
     if(error){
       res.status(500).json({
         error : "there was a server side error"
