@@ -9,7 +9,7 @@ const purchaseRoute = require("./routes/PurchaseRoute");
 const connectionDb = require("./connection/connectionDB");
 const multer = require("multer");
 const path = require("path");
-const unShiptUser = require('./routes/userRoutes')
+const userRoutes = require('./routes/userRoutes')
 const reviewRoute = require('./routes/reviewRoute')
 const adminRoute = require('./routes/adminRoute')
 const UPLOAD_FOLDER = "./upload/";
@@ -42,7 +42,7 @@ app.use(express.json());
 /* Routes */
 app.use("/api/tools", toolsRoute);
 app.use("/api/purchase", purchaseRoute);
-app.use("/api/user" , unShiptUser)
+app.use("/api/user" , userRoutes)
 app.use("/api/review" , reviewRoute)
 app.use("/api/admin" , adminRoute)
 
@@ -51,6 +51,6 @@ app.get('/',(req, res)=>{
   res.send('hello word')
 })
 
-app.listen(port, () => {
-  (`server is running on ${port}`);
+app.listen(port,() => {
+  console.log(`server is running on ${port}`);
 });

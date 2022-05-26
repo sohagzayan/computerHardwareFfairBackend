@@ -42,5 +42,16 @@ exports.deleteUser = async(req , res)=>{
 }
 
 
+exports.getSingleUser = async(req , res)=>{
+    const email = req.params.email
+    try {
+        const allUser = await User.find({email : email})
+        res.send(allUser)
+    } catch (error) {
+        res.send(error)
+    }
+}
+
+
 
 
