@@ -1,4 +1,5 @@
 const Purchase = require("../models/purchaseSchema");
+const Payment = require("../models/paymentDetails");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 /* Purses add */
@@ -66,3 +67,42 @@ exports.paymentIntent = ('/',  async (req , res)=>{
     res.send({clientSecret: paymentIntent.client_secret})
 })
 
+
+
+exports.updatePayedInfo = ('/',  async (req , res)=>{
+  
+  try {
+    const id = req.params.id
+  const payment = req.body
+  const result = await Payment(payment)
+  await result.save()
+ 
+  // const updateProduct = {
+  //   payed : 'true',
+  //   transactionId : payment.transactionId
+  // }
+  const updated = await Purchase.findByIdAndUpdate({_id : req.params.id} ,{ $set : {payed : 'true' , transactionId : payment.transactionId}} , {useFindAndModify : true},(error)=>{
+    if(error){
+      res.status(500).json({
+        error : "there was a server side error"
+      })
+    }else{
+      res.status(200).json({message : 'todo was updated'})
+    }
+  })
+  res.send(updated)
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+
+
+exports.deletePursesProduct = async(req , res)=>{
+  try {
+     const deleted = await Purchase.findByIdAndDelete(req.params.id)
+     res.status(200).json(deleted)
+  } catch (error) {
+      res.send(error)
+  }
+}

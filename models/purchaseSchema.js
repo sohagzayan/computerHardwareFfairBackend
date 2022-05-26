@@ -19,6 +19,16 @@ const purchaseSchema = mongoose.Schema({
     orderAmount : {
         type : String,
     },
+    
+    payed : {
+        type : String,
+        default : ''
+    },
+    transactionId : {
+        type : String,
+        default : ''
+
+    },
     date : {
         type : String
         
