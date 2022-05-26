@@ -1,4 +1,5 @@
 const Purchase = require("../models/purchaseSchema");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 /* Purses add */
 exports.addPurchase = async (req, res) => {
@@ -38,3 +39,30 @@ exports.getAllPurchase = async (req, res) => {
     }
   }
 };
+
+
+
+exports.getSingleParson = async (req, res) => {
+  const id = req.params.id
+  try {
+    const newPurchase = await Purchase.findById(id)
+    res.send(newPurchase);
+  } catch (error) {
+    res.send(error.message);
+  }
+};
+
+
+
+exports.paymentIntent = ('/',  async (req , res)=>{
+  const service = req.body;
+    const price = service.price;
+    const amount = price*100;
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount : amount,
+      currency: 'usd',
+      payment_method_types:['card']
+    });
+    res.send({clientSecret: paymentIntent.client_secret})
+})
+

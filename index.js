@@ -29,6 +29,15 @@ let upload = multer({
   storage: storage,
 });
 
+
+
+
+
+
+
+
+
+
 app.post("/upload", upload.single("file"), (req, res) => {
   res.status(200).json("file upload success");
 });
