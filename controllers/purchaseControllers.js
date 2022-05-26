@@ -57,7 +57,7 @@ exports.getSingleParson = async (req, res) => {
 exports.paymentIntent = ('/',  async (req , res)=>{
   const service = req.body;
     const price = service.price;
-    const amount = price*100;
+    const amount = price * 100;
     const paymentIntent = await stripe.paymentIntents.create({
       amount : amount,
       currency: 'usd',
